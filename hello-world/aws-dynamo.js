@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 
-let documentClient = new AWS.DynamoDB.DocumentClient({
+let awsDynamo = new AWS.DynamoDB.DocumentClient({
     'region': 'eu-west-1'
 });
 
@@ -23,7 +23,7 @@ module.exports = class DB {
             };
 			console.log('get | params: ' + JSON.stringify(params));
 			
-            documentClient.get(params, function(err, data) {
+            awsDynamo.get(params, function(err, data) {
                 if (err) {
                     console.log(`There was an error fetching the data for ${key} ${value} on table ${table}`, err);
                     return reject(err);
@@ -52,7 +52,7 @@ module.exports = class DB {
                 Item: { ...data, ID: ID }
             };
 
-            documentClient.put(params, function(err, result) {
+            awsDynamo.put(params, function(err, result) {
                 if (err) {
                     console.log("Err in writeForCall writing messages to dynamo:", err);
                     console.log(params);
@@ -84,20 +84,23 @@ module.exports = class DB {
     }
 
 
-
-	
-	
 	
     scan(key, value, table) {
         return new Promise((resolve, reject) => {
             let params = {
                 TableName: table,
-                FilterExpression: `${key} = :value`,
-                ExpressionAttributeValues: { ':value': value }
+                Expected:{
+					'breedId':{
+						Exists:true
+					}
+				}
             };
 
-            documentClient.scan(params, function(err, data) {
-                if (err) reject(err)
+			console.log('scan | with params: ' + JSON.stringify(params));
+            awsDynamo.scan(params, function(err, data) {
+                if (err) reject(err);
+				
+				console.log('scan | result: ' + JSON.stringify(data));
                 resolve(data);
             });
         });
