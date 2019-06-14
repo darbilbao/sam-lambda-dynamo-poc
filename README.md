@@ -1,4 +1,84 @@
-# sam-app
+# sam-endesa-lambda-dynamo-poc
+
+An explanatory project to understand and play with AWS SAM CLI.
+This sample app has been generated using the basic template ```sam init```
+
+## Requirements
+
+* [NodeJS 8.10+ installed](https://nodejs.org/en/download/releases/)
+* [AWS CLI already configured with Administrator permission](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+	* you will require to create a programatical access key for ```aws configure``` setup command
+
+* [Docker installed](https://www.docker.com/community-edition)
+
+* [SAM CLI installation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+
+* DynamoDB table called 'CatBreedTable'
+
+```bash
+# create a DynamoDB table on your aws account
+# (next steps will include howto have this on local environment)
+$ aws dynamodb create-table --table-name CatBreedTable --region eu-west-1 --attribute-definitions 'AttributeName=breedId, AttributeType=S' --key-schema 'AttributeName=breedId, KeyType=HASH' --provisioned-throughput 'ReadCapacityUnits=5, WriteCapacityUnits=5'
+```
+
+
+## Usage
+
+1) Local Mode
+
+```bash
+#
+# will start a listening port at http://localhost:127.0.01:3000 
+# and expose the endpoints defined in the project
+#
+# NOTE: take a look at the startup messages for a closer descrption
+#
+
+$ sam local start-api
+
+```
+
+```bash
+
+# hello-world (from template)
+$ curl localhost:3000/hello
+
+# get
+$ curl localhost:3000/cats/counter
+
+# put (+1)
+$ curl -H "Content-Type:application/json" -X PUT -d"{\"breedId\":\"Syamese\"}" localhost:3000/cats/counter
+
+# del (-1)
+$ curl -H "Content-Type:application/json" -X DEL -d"{\"breedId\":\"Syamese\"}" localhost:3000/cats/counter
+
+# del breed
+curl -H "Content-Type:application/json" -X DEL -d"{\"breed\":\"Syamese\"}" localhost:3000/cats
+```
+
+
+
+---
+
+## sam cheatsheet
+
+```bash
+# creates an initial sam functional artifact with node runtime
+$ sam init -r nodejs8.10 -n sam-endesa-lambda-dynamo-poc
+``` 
+
+```bash
+# checks template against online service (?), hence aws configure must be correctly setup
+$ sam validate
+```
+
+
+
+---
+
+> iru: i'm leaving original README content for explanatory purpose
+
+## sam-app
 
 This is a sample template for sam-app - Below is a brief explanation of what we have generated for you:
 
@@ -14,13 +94,6 @@ This is a sample template for sam-app - Below is a brief explanation of what we 
 │           └── test-handler.js
 ├── template.yaml               <-- SAM template
 ```
-
-## Requirements
-
-* AWS CLI already configured with Administrator permission
-* [NodeJS 8.10+ installed](https://nodejs.org/en/download/releases/)
-
-* [Docker installed](https://www.docker.com/community-edition)
 
 ## Setup process
 
