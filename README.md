@@ -28,7 +28,7 @@ $ aws dynamodb create-table --table-name CatBreedTable --region eu-west-1 --attr
 
 ```bash
 #
-# will start a listening port at http://localhost:127.0.01:3000 
+# will start a listening port at http://localhost:127.0.0.1:3000 
 # and expose the endpoints defined in the project
 #
 # NOTE: take a look at the startup messages for a closer descrption
