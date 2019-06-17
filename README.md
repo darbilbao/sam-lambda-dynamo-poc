@@ -3,6 +3,14 @@
 An explanatory project to understand and play with AWS SAM CLI.
 This sample app has been generated using the basic template ```sam init```
 
+TODO for next iterations: 
+
+* dynamo local tables
+* sam layer usage for dynamo management
+* TDD usage
+* performance tests (cold start timing)
+
+
 ## Requirements
 
 * [NodeJS 8.10+ installed](https://nodejs.org/en/download/releases/)

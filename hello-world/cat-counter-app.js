@@ -1,8 +1,5 @@
 /*
  * TODO
- * - avoid using dynamo table until lambda deployment; local dynamo usage
- * - create layer for aws dynamo management
- *
  * - save cat counter by breedId and return a join with a breedId - breedName
  * - getCatCounter , for specific breed
  */
